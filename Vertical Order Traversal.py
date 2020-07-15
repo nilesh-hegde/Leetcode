@@ -58,41 +58,17 @@ class Solution:
             traverse(node.left,col-1,level+1)
             traverse(node.right,col+1,level+1)
         traverse(root,0,0)
-        print(dict1)
-        list1=list(dict1.keys())
-        mincol=0
-        maxcol=0
-        minlev=0
-        maxlev=0
-        for tup in list1:
-            if tup[0]<mincol:
-                mincol=tup[0]
-            if tup[0]>maxcol:
-                maxcol=tup[0]
-            if tup[1]<minlev:
-                minlev=tup[1]
-            if tup[1]>maxlev:
-                maxlev=tup[1]
-        i=mincol
-        j=minlev
-        dict2={}
-        while i<=maxcol:
-            j=minlev
-            while j<=maxlev:
-                if (i,j) in dict1.keys():
-                    dict1[(i,j)].sort()
-                    if i in dict2.keys():
-                        dict2[i]=dict2[i]+dict1[(i,j)]
-                    else:
-                        dict2[i]=dict1[(i,j)]
-                j=j+1
-            i=i+1
-        list1=list(dict2.keys())
+        list1=list(dict1)
         list1.sort()
-        i=0
+        dict2={}
         for key in list1:
-            list1[i]=dict2[key]
-            i=i+1
-        return list1
-                
-            
+            if key[0] in dict2:
+                dict2[key[0]]=dict2[key[0]]+sorted(dict1[key])
+            else:
+                dict2[key[0]]=sorted(dict1[key])
+        list2=list(dict2)
+        list2.sort()
+        list3=[]
+        for k in list2:
+            list3.append(dict2[k])
+        return(list3)
